@@ -19,10 +19,9 @@ namespace TW.DeveloperTest.WorkLibrary
             LogLevelThreshhold = SeverityType.Error;
         }
 
-        public LoggingLibrary(string logFilePath, string logFormat, SeverityType logLevelThreshhold)
+        public LoggingLibrary(string logFilePath, SeverityType logLevelThreshhold)
         {
             LogFilePath = logFilePath;
-            LogFormat = logFormat;
             LogLevelThreshhold = logLevelThreshhold;
         }
 
@@ -36,7 +35,7 @@ namespace TW.DeveloperTest.WorkLibrary
             try
             {
                 //TODO - change to write to a database, or some other format.
-                string logLine = string.Format(LogFormat, DateTime.Now.ToString(), message.Severity, message.Text);
+                string logLine = string.Format(LogFormat, message.Time, message.Severity, message.Text);
                 using (StreamWriter writer = new StreamWriter(LogFilePath, true))
                 {
                     writer.WriteLine(logLine);

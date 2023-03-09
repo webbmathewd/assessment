@@ -35,7 +35,6 @@ logger.Log(SeverityType.Error, "This is an error message");
 You can customize the LoggingLibrary in a few ways. You can modify the following properties of the "LoggingLibrary" class to customize the behavior:
 
     - LogFilePath: Specifies the path of the log file. By Default, the log file is created in the same directory as the executable file of your application.
-    - LogFormat:   Specifies the format of the log messages. By default, the log messages are formatted as '[yyyy-MM-dd HH:mm:ss] - [LogLevel] - Message.'
     - LogLevelThreshold: Specifies the minimum log level the will be written to the file. By default, Debug logs are not written to the file.
 
 
@@ -43,6 +42,5 @@ Example:
 
     LoggingLibrary library = new LoggingLibrary() {
         LogFilePath = @"C:\Logs\logs.log",
-        LogFormat = "[{LogLevel} {Message}]",
         LogLevelThreshold = SeverityType.Warning
     }

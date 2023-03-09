@@ -7,21 +7,41 @@ namespace TW.DeveloperTest.WorkLibrary
 {
     public class LoggingLibrary : ILogger
     {
-        private readonly string _logFilePath;
+        public string LogFilePath { get; set; }
+        public string LogFormat { get; set; }
+        public SeverityType LogLevelThreshhold { get; set; }
+
 
         public LoggingLibrary()
         {
-            string exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            _logFilePath = Path.Combine(exePath, "log.txt");
+            LogFilePath = "log.txt";
+            LogFormat = "[{0}] - {1} - {2}";
+            LogLevelThreshhold = SeverityType.Error;
         }
-        public void LogMessage(SeverityType severity, string message)
+
+        public LoggingLibrary(string logFilePath, string logFormat, SeverityType logLevelThreshhold)
         {
+            LogFilePath = logFilePath;
+            LogFormat = logFormat;
+            LogLevelThreshhold = logLevelThreshhold;
+        }
+
+        public void LogMessage(LogMessage message)
+        {
+            //Don't log anything below the threshold 
+            if(message.Severity < LogLevelThreshhold)
+            {
+                return;
+            }
             try
             {
-                using (var writer = new StreamWriter("log.txt", true))
+                //TODO - change to write to a database, or some other format.
+                string logLine = string.Format(LogFormat, DateTime.Now.ToString(), message.Severity, message.Text);
+                using (StreamWriter writer = new StreamWriter(LogFilePath, true))
                 {
-                    writer.WriteLine($"{DateTime.Now.ToString()} - {severity.ToString().ToUpper()} - {message}");
+                    writer.WriteLine(logLine);
                 }
+
             }
             catch (Exception ex)
             {
@@ -33,8 +53,17 @@ namespace TW.DeveloperTest.WorkLibrary
 
     public enum SeverityType
     {
-        Error, 
-        Warning, 
-        Debug
+        Debug,
+        Information,
+        Warning,
+        Error
+    }
+
+
+    public class LogMessage
+    {
+        public string Time { get; set; }
+        public SeverityType Severity { get; set; }
+        public string Text { get; set; }
     }
 }

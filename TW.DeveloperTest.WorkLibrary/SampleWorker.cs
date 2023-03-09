@@ -49,7 +49,14 @@ namespace TW.DeveloperTest.WorkLibrary
         {
             SeverityType severity = (SeverityType)new Random().Next(Enum.GetNames(typeof(SeverityType)).Length);
             LoggingLibrary library = new LoggingLibrary();
-            library.LogMessage(severity, message);
+            LogMessage logMessage = new LogMessage()
+            {
+                Time = DateTime.Now.ToString(),
+                Severity = severity,
+                Text = message
+            };
+
+            library.LogMessage(logMessage);
         }
     }
 }

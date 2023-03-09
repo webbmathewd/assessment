@@ -1,52 +1,48 @@
-# Welcome
+Logging Library
+This is a simple logging library for C# applications. It provides a simple way to log messages to a text file with different log levels (Debug, Warning, Information, and Error).
 
-Included below are the instructions for the ToolWatch C# code exercise.  We're glad to have you here.  Good luck!
+Installation
+To use the Logging Library in your C# application, you'll need to include the LoggingLibrary.dll file in your project. You can do this by downloading the LoggingLibrary.dll file and adding it as a reference in your Visual Studio project.
 
-## Your Mission
+Alternatively, you can build the LoggingLibrary project from source and include the resulting DLL file in your project.
 
-**The goal of this code exercise it to create a simple logging library.**
+Usage
+To use the Logging Library in your C# application, you'll need to create an instance of the Logger class and call its Log method to log messages. Here's an example:
 
-The logging library should consist of:
+using LoggingLibrary;
 
-1) A simple interface to define the essential behavior of a log
+// Create a LoggingLibrary instance
+LoggingLibrary library = new LoggingLibrary();
 
-2) At least one concrete implementation that facilitates testing, and a suite of tests that assert the correct behavior of the library
+//Create a LogMessage
+LogMessage logMessage = new LogMessage()
+            {
+                Time = DateTime.Now.ToString(),
+                Severity = severity,
+                Text = message
+            };
 
-3) At least one concrete instance that is suitable for use in production
+// Log a debug message
+logger.Log(SeverityType.Debug, "This is a debug message");
 
-4) Support for segmenting logs by level (e.g. Debug, Information, Warning, etc.)
+// Log a warning message
+logger.Log(SeverityType.Warning, "This is a warning message");
 
-5) Any other utilities to provide "syntactic sugar" when working with a log
+// Log an error message
+logger.Log(SeverityType.Error, "This is an error message");
 
-6) A README that explains the basic usage of the library and any other relevant information for users, contributors, or maintainers
 
-## Extra time?
+You can customize the LoggingLibrary in a few ways. You can modify the following properties of the "LoggingLibrary" class to customize the behavior:
 
-If you have additional time, think of how we can solve for additional use cases:
+    - LogFilePath: Specifies the path of the log file. By Default, the log file is created in the same directory as the executable file of your application.
+    - LogFormat:   Specifies the format of the log messages. By default, the log messages are formatted as '[yyyy-MM-dd HH:mm:ss] - [LogLevel] - Message.'
+    - LogLevelThreshold: Specifies the minimum log level the will be written to the file. By default, Debug logs are not written to the file.
 
-1) How could we protect against sensetive information being accidently written to the logs?
 
-2) How could our library encourage us to store our logs in a way to make them more searchable?
+Example: 
 
-3) How could we support different retention policies for logs based on log level?
-
-## Think about future maintainers
-
-Code is maintained more than it is written.  Think about how easy your code will be for a future developer to understand and possibly extend.  Is there any subtle behavior that may surprise people?  Is the code simple enough to allow a junior programmer could understand it?
-
-## Tracking changes
-
-Ideally we would like to see you track your work in a version control system.
-
-## Some Caveats
-
-This is a fictitious scenario we have created in order to give you license to go write some original code.  Please do not just demonstrate the use of an existing logging library, either in Nuget or in dotnet proper.  The intent of this exercise is for you show us how you would design and build such a library.
-
-Similarly, please do not get distracted by working to have your logging library write to some specific logging store.  It would be nice to see that, but again we are mostly interested in *your* original code, not how you'd use someone else's code.
-
-Lastly, you were probably given a timebox for this exercise, which means you likely will not finish everything outlined above.  That is 100% OK.  Please treat the timebox the same way you would if you were on the team, and develop something minimally viable, and otherwise illustrative of where you would take the library if you had more time.
-
-## Closing thoughts
-
-We have tried to make this code exercise realistic, which means some things are a bit ambiguous or open ended.  Feel free to ask any questions, especially if you get blocked.
-
+    LoggingLibrary library = new LoggingLibrary() {
+        LogFilePath = @"C:\Logs\logs.log",
+        LogFormat = "[{LogLevel} {Message}]",
+        LogLevelThreshold = SeverityType.Warning
+    }

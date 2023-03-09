@@ -8,6 +8,6 @@ namespace TW.DeveloperTest.WorkLibrary
 {
     internal interface ILogger
     {
-        void LogMessage(SeverityType severity, string message);
+        void LogMessage(LogMessage message);
     }
 }

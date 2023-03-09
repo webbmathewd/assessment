@@ -4,8 +4,6 @@ This is a simple logging library for C# applications. It provides a simple way t
 Installation
 To use the Logging Library in your C# application, you'll need to include the LoggingLibrary.dll file in your project. You can do this by downloading the LoggingLibrary.dll file and adding it as a reference in your Visual Studio project.
 
-Alternatively, you can build the LoggingLibrary project from source and include the resulting DLL file in your project.
-
 Usage
 To use the Logging Library in your C# application, you'll need to create an instance of the Logger class and call its Log method to log messages. Here's an example:
 
@@ -18,19 +16,12 @@ LoggingLibrary library = new LoggingLibrary();
 LogMessage logMessage = new LogMessage()
             {
                 Time = DateTime.Now.ToString(),
-                Severity = severity,
+                Severity = Warning,
                 Text = message
             };
 
 // Log a debug message
-logger.Log(SeverityType.Debug, "This is a debug message");
-
-// Log a warning message
-logger.Log(SeverityType.Warning, "This is a warning message");
-
-// Log an error message
-logger.Log(SeverityType.Error, "This is an error message");
-
+library.Log(logMessage);
 
 You can customize the LoggingLibrary in a few ways. You can modify the following properties of the "LoggingLibrary" class to customize the behavior:
 

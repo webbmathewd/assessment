@@ -14,13 +14,13 @@ namespace TW.DeveloperTest.WorkLibrary
             string exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             _logFilePath = Path.Combine(exePath, "log.txt");
         }
-        public void LogMessage(string message)
+        public void LogMessage(SeverityType severity, string message)
         {
             try
             {
                 using (var writer = new StreamWriter("log.txt", true))
                 {
-                    writer.WriteLine($"{DateTime.Now.ToString()} - {message}");
+                    writer.WriteLine($"{DateTime.Now.ToString()} - {severity.ToString().ToUpper()} - {message}");
                 }
             }
             catch (Exception ex)
@@ -28,5 +28,13 @@ namespace TW.DeveloperTest.WorkLibrary
                 Console.WriteLine($"Error writing to log file: {ex.Message}");
             }
         }
+
+    }
+
+    public enum SeverityType
+    {
+        Error, 
+        Warning, 
+        Debug
     }
 }

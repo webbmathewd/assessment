@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Text;
 using TW.DeveloperTest.Contracts;
 
@@ -38,10 +40,16 @@ namespace TW.DeveloperTest.WorkLibrary
                 builder.Append(c);
             }
 
-            LoggingLibrary library = new LoggingLibrary();
-            library.LogMessage(builder.ToString());
+            DetermineSeverity(builder.ToString());
 
             return builder.ToString();
+        }
+
+        private void DetermineSeverity(string message)
+        {
+            SeverityType severity = (SeverityType)new Random().Next(Enum.GetNames(typeof(SeverityType)).Length);
+            LoggingLibrary library = new LoggingLibrary();
+            library.LogMessage(severity, message);
         }
     }
 }

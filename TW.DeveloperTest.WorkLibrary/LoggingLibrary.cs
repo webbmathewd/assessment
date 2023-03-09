@@ -15,12 +15,14 @@ namespace TW.DeveloperTest.WorkLibrary
         public LoggingLibrary()
         {
             LogFilePath = "log.txt";
+            //TODO allow custom formats
             LogFormat = "[{0}] - {1} - {2}";
             LogLevelThreshhold = SeverityType.Error;
         }
 
         public LoggingLibrary(string logFilePath, SeverityType logLevelThreshhold)
         {
+            //allow for custom file path for logs, and custom severity type filter
             LogFilePath = logFilePath;
             LogLevelThreshhold = logLevelThreshhold;
         }
@@ -33,7 +35,6 @@ namespace TW.DeveloperTest.WorkLibrary
                 return;
             }
             try
-            {
                 //TODO - change to write to a database, or some other format.
                 string logLine = string.Format(LogFormat, message.Time, message.Severity, message.Text);
                 using (StreamWriter writer = new StreamWriter(LogFilePath, true))
